@@ -24,11 +24,11 @@ router.get("/login/failed", (req, res) => {
 router.get("/google", passport.authenticate("google", ["profile", "email"]));
 
 router.get(
-  "https://codeit-api.vercel.app/auth/google/callback", 
-  passport.authenticate('google', { failureRedirect: '/auth/login/failed' }), 
+  "/auth/google/callback",  // Use relative callback route
+  passport.authenticate('google', { failureRedirect: '/auth/login/failed' }),
   async function (req, res, next) {
     const profile = req.user;  // Profile data will now be available here
-    
+
     try {
       // Check if the user exists in the database
       let user = await userSchema.findOne({ googleId: profile.id });
@@ -70,7 +70,6 @@ router.get(
     }
   }
 );
-
 
 router.get("/logout", (req, res) => {
 	req.logout();
