@@ -9,6 +9,7 @@ const app = express();
 const routes = require("./modules/routes")
 const mongoose = require("mongoose")
 
+app.set('trust proxy', 1);
 app.use(
   cookieSession({
     name: "session",
