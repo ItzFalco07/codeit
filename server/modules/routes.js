@@ -9,11 +9,11 @@ router.get('/islogin', async(req,res)=> {
 		if(req.session.user) {
 			res.status(201).json(req.session.user)
 		} else {
-			res.status(500).json({message: 'error while cheacking islogin'});
+			res.status(201).json("error");
 		}
 	} catch(error) {
 		console.error(error)
-		res.json(error)
+		res.json({error: error})
 	}
 })
 
