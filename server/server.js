@@ -16,6 +16,8 @@ app.use(
     keys: [process.env.SESSION_KEY],
     maxAge: 1000 * 60 * 60 * 24 * 365,
     secure: process.env.TYPE === 'production', // Only use secure cookies in production
+    httpOnly: true, // Helps prevent client-side access
+    sameSite: 'none', // Required for cross-origin requests in modern browsers
   })
 );
 
