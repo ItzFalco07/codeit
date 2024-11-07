@@ -6,13 +6,14 @@ const passport = require('passport')
 router.get('/islogin', async(req,res)=> {
 	try {
 		console.log('islogin called')
-		if(req.session) {
+		if(req.session.user) {
 			res.status(201).json(req.session.user)
 		} else {
-			res.status(500).json({message: 'error'});
+			res.status(500).json({message: 'error while cheacking islogin'});
 		}
 	} catch(error) {
 		console.error(error)
+		res.json(error)
 	}
 })
 

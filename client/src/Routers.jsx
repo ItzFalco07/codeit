@@ -17,6 +17,7 @@ function Routers() {
     async function isLogin() {
       console.log('serverUrl', serverUrl)
       let res = await axios.get(`${serverUrl}/api/islogin`, {withCredentials: true})
+      console.log(res)
       if(res.data) {
         navigate('/home')
         setUser({name: res.data.Name, email: res.data.Email})
