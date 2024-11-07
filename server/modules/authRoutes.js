@@ -24,8 +24,8 @@ router.get("/login/failed", (req, res) => {
 router.get("/google", passport.authenticate("google", ["profile", "email"]));
 
 router.get(
-  "/auth/google/callback",  // Use relative callback route
-  passport.authenticate('google', { failureRedirect: '/auth/login/failed' }),
+  "/google/callback",  // Use relative callback route
+  passport.authenticate('google', { failureRedirect: '/login/failed' }),
   async function (req, res, next) {
     const profile = req.user;  // Profile data will now be available here
 
@@ -66,7 +66,7 @@ router.get(
     } catch (err) {
       // Error handling, redirect to failure page
       console.error(err);
-      return res.redirect("/auth/login/failed");
+      return res.redirect("/login/failed");
     }
   }
 );
