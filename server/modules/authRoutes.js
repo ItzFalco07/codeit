@@ -1,6 +1,13 @@
 const router = require("express").Router();
 const passport = require("passport");
 const userSchema = require('./userSchema');
+// Add Content Security Policy (CSP) header
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", 
+    "default-src 'self'; script-src 'self' https://vercel.live; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;"
+  );
+  next();
+});
 
 // Login success route
 router.get("/login/success", (req, res) => {
