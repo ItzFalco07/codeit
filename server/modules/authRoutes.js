@@ -1,53 +1,40 @@
 const router = require("express").Router();
 const passport = require("passport");
 const userSchema = require('./userSchema');
-// Add Content Security Policy (CSP) header
-app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", 
-    "default-src 'self'; script-src 'self' https://vercel.live; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;"
-  );
-  next();
-});
 
-// Login success route
 router.get("/login/success", (req, res) => {
-  if (req.user) {
-    res.status(200).json({
-      error: false,
-      message: "Successfully Logged In",
-      user: req.user,
-    });
-  } else {
-    res.status(403).json({ error: true, message: "Not Authorized" });
-  }
+	if (req.user) {
+		res.status(200).json({
+			error: false,
+			message: "Successfully Loged In",
+			user: req.user,
+		});
+	} else {
+		res.status(403).json({ error: true, message: "Not Authorized" });
+	}
 });
 
-// Login failure route
 router.get("/login/failed", (req, res) => {
-  res.status(401).json({
-    error: true,
-    message: "Log in failure",
-  });
+	res.status(401).json({
+		error: true,
+		message: "Log in failure",
+	});
 });
 
-// Google login route
-router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+router.get("/google", passport.authenticate("google", ["profile", "email"]));
 
-// Google callback route
 router.get(
-  "/google/callback", 
+  "/google/callback",  // Use relative callback route
   passport.authenticate('google', { failureRedirect: '/login/failed' }),
-  async (req, res, next) => {
+  async function (req, res, next) {
     const profile = req.user;  // Profile data will now be available here
-    try {
-      if (!profile) {
-        return res.status(500).json({ error: true, message: "Profile data not available" });
-      }
 
+    try {
       // Check if the user exists in the database
       let user = await userSchema.findOne({ googleId: profile.id });
 
       if (user) {
+        // User exists, store in session
         req.session.user = {
           googleId: profile.id,
           name: profile.displayName,
@@ -56,6 +43,7 @@ router.get(
         };
         return res.redirect(`${process.env.CLIENT_URL}/home`);
       } else {
+        // User doesn't exist, create a new user
         let newUser = new userSchema({
           googleId: profile.id,
           name: profile.displayName,
@@ -65,6 +53,7 @@ router.get(
 
         await newUser.save();
 
+        // Store new user in session
         req.session.user = {
           googleId: profile.id,
           name: profile.displayName,
@@ -75,20 +64,16 @@ router.get(
         return res.redirect(`${process.env.CLIENT_URL}/home`);
       }
     } catch (err) {
-      console.error(err);  // Detailed error logging
-      return res.status(500).json({ error: true, message: "Internal Server Error" });
+      // Error handling, redirect to failure page
+      console.error(err);
+      return res.redirect("/login/failed");
     }
   }
 );
 
-// Logout route
 router.get("/logout", (req, res) => {
-  req.logout(err => {
-    if (err) console.error("Logout error:", err);
-  });
-  req.session.destroy(() => {
-    res.redirect(process.env.CLIENT_URL);
-  });
+	req.logout();
+	res.redirect(process.env.CLIENT_URL);
 });
 
 module.exports = router;
