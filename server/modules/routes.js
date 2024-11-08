@@ -9,10 +9,8 @@ router.get('/islogin', async (req, res) => {
     console.log('Session Data:', req.session);  // Log session details for debugging
 
     if (req.session.user) {
-      // User is logged in; send user data
       res.status(200).json(req.session.user);
     } else {
-      // User is not logged in; return clear error message
       res.status(200).json({ error: true, message: 'User not logged in' });
     }
   } catch (error) {
