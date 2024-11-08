@@ -9,14 +9,6 @@ const app = express();
 const routes = require("./modules/routes")
 const mongoose = require("mongoose")
 
-// Add Content Security Policy header
-app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", 
-    "default-src 'self'; script-src 'self' https://vercel.live; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;"
-  );
-  next();
-});
-
 app.use(
   cors({
     origin: ["http://localhost:5173", "https://codeit69.vercel.app"],
