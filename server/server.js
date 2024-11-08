@@ -29,6 +29,7 @@ app.use(
     origin: ["http://localhost:5173", "https://codeit69.vercel.app"],
     methods: "GET,POST,PUT,DELETE",
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
