@@ -15,9 +15,11 @@ app.use(
     name: "session",
     keys: [process.env.SESSION_KEY],
     maxAge: 1000 * 60 * 60 * 24 * 365,
-    secure: process.env.TYPE === 'production', // Only use secure cookies in production
+    secure: process.env.TYPE === 'production' && process.env.TYPE === 'production',  // Only use secure cookies in production
+    sameSite: process.env.TYPE === 'production' ? 'none' : 'lax'  // Allows cross-site cookies
   })
 );
+
 
 app.use(passport.initialize());
 app.use(passport.session());
