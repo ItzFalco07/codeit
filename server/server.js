@@ -9,20 +9,6 @@ const app = express();
 const routes = require("./modules/routes")
 const mongoose = require("mongoose")
 
-app.set('trust proxy', 1);
-app.use(
-  cookieSession({
-    name: "session",
-    keys: [process.env.SESSION_KEY],
-    maxAge: 1000 * 60 * 60 * 24 * 365,
-    secure: process.env.TYPE === 'production', // Only use secure cookies in production
-    sameSite: 'none', // Required for cross-origin requests in modern browsers
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.use(
   cors({
     origin: ["http://localhost:5173", "https://codeit69.vercel.app"],
@@ -30,6 +16,20 @@ app.use(
     credentials: true,
   })
 );
+
+app.set('trust proxy', 1);
+app.use(
+  cookieSession({
+    name: "session",
+    keys: [process.env.SESSION_KEY],
+    maxAge: 1000 * 60 * 60 * 24 * 365,
+    secure: process.env.TYPE === 'production', // Only use secure cookies in production
+    sameSite: 'lax', // Required for cross-origin requests in modern browsers
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/api', routes)
 app.use("/auth", authRoute);
