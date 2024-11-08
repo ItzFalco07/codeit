@@ -28,37 +28,48 @@ router.get("/google", passport.authenticate("google", { scope: ["profile", "emai
 
 // Google callback route
 router.get(
-  "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login/failed" }),
-  async (req, res) => {
-    const profile = req.user; // Profile data available after authentication
-
+  "/google/callback", 
+  passport.authenticate('google', { failureRedirect: '/login/failed' }),
+  async (req, res, next) => {
+    const profile = req.user;  // Profile data will now be available here
     try {
+      if (!profile) {
+        return res.status(500).json({ error: true, message: "Profile data not available" });
+      }
+
       // Check if the user exists in the database
       let user = await userSchema.findOne({ googleId: profile.id });
 
-      if (!user) {
-        // User doesn't exist, create a new user
-        user = await userSchema.create({
+      if (user) {
+        req.session.user = {
+          googleId: profile.id,
+          name: profile.displayName,
+          email: profile.emails[0].value,
+          image: profile.photos[0].value,
+        };
+        return res.redirect(`${process.env.CLIENT_URL}/home`);
+      } else {
+        let newUser = new userSchema({
           googleId: profile.id,
           name: profile.displayName,
           email: profile.emails[0].value,
           image: profile.photos[0].value,
         });
+
+        await newUser.save();
+
+        req.session.user = {
+          googleId: profile.id,
+          name: profile.displayName,
+          email: profile.emails[0].value,
+          image: profile.photos[0].value,
+        };
+
+        return res.redirect(`${process.env.CLIENT_URL}/home`);
       }
-
-      // Store user data in session
-      req.session.user = {
-        googleId: user.googleId,
-        name: user.name,
-        email: user.email,
-        image: user.image,
-      };
-
-      return res.redirect(`${process.env.CLIENT_URL}/home`);
     } catch (err) {
-      console.error("Error during authentication:", err);
-      return res.redirect("/login/failed");
+      console.error(err);  // Detailed error logging
+      return res.status(500).json({ error: true, message: "Internal Server Error" });
     }
   }
 );
