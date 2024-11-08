@@ -3,19 +3,23 @@ const router = express.Router();
 const userSchema = require("./userSchema")
 const passport = require('passport')
 
-router.get('/islogin', async(req,res)=> {
-	try {
-		console.log('islogin called')
-		if(req.session.user) {
-			res.status(201).json(req.session.user)
-		} else {
-			res.status(201).json("error");
-		}
-	} catch(error) {
-		console.error(error)
-		res.json({error: error})
-	}
-})
+router.get('/islogin', async (req, res) => {
+  try {
+    console.log('islogin called');
+    console.log('Session Data:', req.session);  // Log session details for debugging
+
+    if (req.session.user) {
+      // User is logged in; send user data
+      res.status(200).json(req.session.user);
+    } else {
+      // User is not logged in; return clear error message
+      res.status(200).json({ error: true, message: 'User not logged in' });
+    }
+  } catch (error) {
+    console.error("Internal Server Error:", error);  // Log error details
+    res.status(500).json({ error: true, message: 'Internal Server Error' });
+  }
+});
 
 router.post('/signup', async (req,res)=> {
 	try {
