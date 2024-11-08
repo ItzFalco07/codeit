@@ -19,11 +19,13 @@ function Routers() {
       let res = await axios.get(`${serverUrl}/api/islogin`, {withCredentials: true})
       console.log(res)
       if(!res.data.error) {
-        navigate('/home')
-        setUser({name: res.data.Name, email: res.data.Email})
         console.log(res.data)
+        navigate('/home')
+        console.log(res.data)
+        setUser({name: res.data.name, email: res.data.email})
       } else {
         navigate('/login')
+        console.log(res.data)
       }
     }
     isLogin()
