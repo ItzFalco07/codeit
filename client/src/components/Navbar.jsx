@@ -13,7 +13,7 @@ const Navbar = ({Selected, setSelected}) => {
   async function logout() {
     try {
       console.log("logout called")
-      let res = await axios.get(`${serverUrl}/logout`, {withCredentials: true})
+      let res = await axios.get(`${serverUrl}/api/logout`, {withCredentials: true})
       if(res.data.message == "success") {
         navigate('/login')
       }
