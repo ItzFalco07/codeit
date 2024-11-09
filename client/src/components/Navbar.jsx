@@ -23,10 +23,11 @@ const Navbar = ({Selected, setSelected}) => {
   }
 
   return (
-  	<div className="w-[14em] bg-sec h-full px-4 py-6">
+  	<div className="relative w-[16em] bg-sec h-full px-4 py-6">
+      <img src="/logo.png" className="w-[70%] mb-5 m-auto"/>
       <Button className="w-full"><Plus /> Create Project</Button>
 
-      <div className="links flex flex-col mt-6 justify-between h-[91%]">
+      <div className="links flex flex-col mt-6 justify-between h-[82%]">
         <div id="top" className="w-full flex flex-col gap-5">
           <Button onClick={()=> setSelected('home')} variant="ghost" className={`flex justify-start  ${Selected == 'home' ? 'bg-hover hover:bg-' : 'hover:bg-hover'}`}><Home/>Home</Button>
           <Button onClick={()=> setSelected('projects')} variant="ghost" className={`flex justify-start ${Selected == 'projects' ? 'bg-hover hover:bg-' : 'hover:bg-hover'}`}><Folder/>Projects</Button>

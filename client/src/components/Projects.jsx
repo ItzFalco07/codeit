@@ -3,7 +3,7 @@ import React from 'react';
 const Projects = () => {
   return (
     <>
-    PROJECTS
+      <div className="w-full">PROJECTS - UNDER DEVELOPMENT</div>
     </>
   );
 };

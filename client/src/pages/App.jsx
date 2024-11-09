@@ -7,6 +7,7 @@ import Home from '@/components/Home'
 import Navbar from '@/components/Navbar'
 import Profile from '@/components/Profile'
 import Projects from '@/components/Projects'
+import Community from '@/components/Community'
 
 const App = () => {
 
@@ -18,7 +19,8 @@ const App = () => {
       {
         (Selected === 'home' && <Home />) ||
         (Selected === 'profile' && <Profile />) ||
-        (Selected === 'projects' && <Projects />)
+        (Selected === 'projects' && <Projects />) ||
+        (Selected === 'community' && <Community/>)
       }
     </div>
   );

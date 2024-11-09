@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import { useUser } from './context';
+import Editor from './pages/Editor'
 
 function Routers() {
   let navigate = useNavigate()
@@ -15,17 +16,13 @@ function Routers() {
 
   useEffect(()=> {
     async function isLogin() {
-      console.log('serverUrl', serverUrl)
       let res = await axios.get(`${serverUrl}/api/islogin`, {withCredentials: true})
-      console.log(res)
       if(!res.data.error) {
         console.log(res.data)
         navigate('/home')
-        console.log(res.data)
-        setUser({name: res.data.name, email: res.data.email})
+        setUser({name: res.data.name, email: res.data.email, image: res.data.image})
       } else {
         navigate('/login')
-        console.log(res.data)
       }
     }
     isLogin()
@@ -36,6 +33,7 @@ function Routers() {
           <Routes>
             <Route path="/login" element={<Form/>} />
             <Route path="/home" element={<App/>} />
+            <Route path="/editor" element={<Editor/>} />
           </Routes>
         <ToastContainer theme="dark"/>
       </ThemeProvider>
