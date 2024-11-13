@@ -53,17 +53,27 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			},
-            bg: {
-                DEFAULT: 'hsl(var(--bg))',
-                foreground: 'hsl(var(--bg-f))'
-            },
-            sec: {
-                DEFAULT: 'hsl(var(--sec))',
-                foreground: 'hsl(var(--sec-f))'
-            },
-            hover: {
-                DEFAULT: 'hsl(var(--hover))'
-            }
+  			bg: {
+  				DEFAULT: 'hsl(var(--bg))',
+  				foreground: 'hsl(var(--bg-f))'
+  			},
+  			sec: {
+  				DEFAULT: 'hsl(var(--sec))',
+  				foreground: 'hsl(var(--sec-f))'
+  			},
+  			hover: {
+  				DEFAULT: 'hsl(var(--hover))'
+  			},
+  			sidebar: {
+  				DEFAULT: 'hsl(var(--sidebar-background))',
+  				foreground: 'hsl(var(--sidebar-foreground))',
+  				primary: 'hsl(var(--sidebar-primary))',
+  				'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+  				accent: 'hsl(var(--sidebar-accent))',
+  				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+  				border: 'hsl(var(--sidebar-border))',
+  				ring: 'hsl(var(--sidebar-ring))'
+  			}
   		}
   	}
   },

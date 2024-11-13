@@ -31,6 +31,22 @@
     --radius: 0.5rem;
 
     /* custom colors */
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -64,6 +80,14 @@
     --bg-f: 244, 62%, 5%;
     --sec-f: 240, 34%, 11%;
     --hover: 0 100% 100% / 0.13;
+    --sidebar-background: 240, 34%, 11%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 0 100% 100% / 0.13;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -85,4 +109,14 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+#toggleIcon {
+  width: 1.8em;
+  height: 1.8em;
+  color: #d9d9d9;
+}
+
+.navLogo {
+  @apply text-[#d9d9d9] w-6 cursor-pointer
 }
