@@ -8,6 +8,7 @@ const passportStrategy = require("./modules/passport");
 const app = express();
 const routes = require("./modules/routes")
 const mongoose = require("mongoose")
+const folder = require("./modules/folder")
 
 app.use(express.json());
 
@@ -23,6 +24,7 @@ app.use(
   })
 );
 
+app.use('',folder);
 
 app.use(passport.initialize());
 app.use(passport.session());

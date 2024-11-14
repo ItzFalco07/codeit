@@ -5,9 +5,6 @@ const passport = require('passport')
 
 router.get('/islogin', async (req, res) => {
   try {
-    console.log('islogin called');
-    console.log('Session Data:', req.session);  // Log session details for debugging
-
     if (req.session.user) {
       res.status(200).json(req.session.user);
     } else {
@@ -45,7 +42,6 @@ router.post('/signup', async (req,res)=> {
 router.post('/login', async (req,res)=> {
 	try {
 		const {Email, Password} = req.body;
-		console.log('email', Email, 'password', Password)
 		const user = await userSchema.findOne({ email: Email });
 		if(!user) {
 			res.status(201).json({message: 'fail'})
@@ -73,14 +69,11 @@ router.post('/login', async (req,res)=> {
 
 router.get('/logout', async (req, res) => {
   try {
-    console.log("logout called backend");
     if (req.session.user) {
       req.session.user = null; // Alternatively, try req.session.user = undefined;
-      console.log('cleared user session');
 
       res.status(200).json({ message: 'success' }); // Send success response
     } else {
-      console.log('no active user session');
       res.status(400).json({ message: 'No active session to clear' });
     }
     req.logout();

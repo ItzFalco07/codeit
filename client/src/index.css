@@ -120,3 +120,15 @@ body {
 .navLogo {
   @apply text-[#d9d9d9] w-6 cursor-pointer
 }
+
+.TreeNode {
+  display: flex !important;
+}
+
+.TreeNodeToolBar {
+  display: flex !important;
+}
+
+.EditableName input {
+  color: black !important;
+}

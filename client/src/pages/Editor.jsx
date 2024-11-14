@@ -27,15 +27,19 @@ const Editor = () => {
 	return (
 	<>
 	<EditorNav setTheme={setTheme} setfilesSize={setfilesSize} setTextSize={setTextSize} textSize={textSize} setLanguage={setLanguage}/>
-      <ResizablePanelGroup direction="horizontal" className="min-h-[93vh] flex">
-		<ResizablePanel defaultSize={filesSize}>
+      <ResizablePanelGroup direction="horizontal" className="min-h-[93vh] flex gap-1">
+    		<ResizablePanel defaultSize={filesSize}>
           <Files />
         </ResizablePanel>
+
         <ResizableHandle withHandle />
+
         <ResizablePanel defaultSize={600}>
           <CodeEditor Language={Language} textSize={textSize} theme={theme} value={Code} onChange={setCode} />
         </ResizablePanel>
+
         <ResizableHandle withHandle />
+
         <ResizablePanel defaultSize={300}>
           <Console />
         </ResizablePanel>

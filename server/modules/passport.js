@@ -12,7 +12,6 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, done) {
       // Here you can handle user login, profile saving, etc.
-      console.log(profile);  // Helps you inspect the profile object
       return done(null, profile); // Passing profile data to done()
     }
   )

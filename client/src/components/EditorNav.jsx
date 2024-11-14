@@ -60,7 +60,9 @@ const EditorNav = ({ setTheme, setfilesSize, setTextSize, textSize, setLanguage 
             <MenubarContent>
               <MenubarItem onClick={()=> setLanguage('javascript')}>JavaScript</MenubarItem>
               <MenubarItem onClick={()=> setLanguage('python')}>Python</MenubarItem>
-              <MenubarItem onClick={()=> setLanguage('javascriptreact')}>JSX</MenubarItem>
+              <MenubarItem onClick={()=> setLanguage('javascript')}>JSX</MenubarItem>
+              <MenubarItem onClick={()=> setLanguage('css')}>CSS</MenubarItem>
+              <MenubarItem onClick={()=> setLanguage('html')}>html</MenubarItem>
               <MenubarItem onClick={()=> setLanguage('cpp')}>C++</MenubarItem>
               <MenubarItem onClick={()=> setLanguage('C')}>C</MenubarItem>
               <MenubarItem onClick={()=> setLanguage('csharp')}>C#</MenubarItem>
