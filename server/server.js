@@ -24,7 +24,6 @@ app.use(
   })
 );
 
-app.use('',folder);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -39,13 +38,14 @@ app.use(
 );
 
 
+app.use('/',folder);
 app.use('/api', routes)
 app.use("/auth", authRoute);
 
 async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGO_URI)
-    console.log('connected')
+    console.log('mongo connected')
   } catch(error) {
     console.error(error)
   }

@@ -1,9 +1,9 @@
 // completed
-# setup folder.js ✅
 
 // easy
-# make project create ui frontend
-# setup backend of project create
+# make project create ui frontend ✅
+# setup backend of project create ✅
+# setup folder.js ✅
 
 // hard
 # sync folder.js with folder frontend
@@ -11,4 +11,4 @@
 
 // very easy
 # setup virtual terminal on folder
-# setup socketio to display terminal commands/logs
+# setup socketio to display terminal commands/logst 

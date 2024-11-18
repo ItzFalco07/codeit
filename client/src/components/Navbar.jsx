@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { Home, Folder, UserRound, UsersRound, LogOut, Plus, PanelLeftClose, PanelLeft } from 'lucide-react'
-import { useUser } from '../context'
+import { useUser } from '../context/user'
 import { Button } from '@/components/ui/button'
 import {
   Sidebar,

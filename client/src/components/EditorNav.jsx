@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { House, PanelRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useUser } from '../context';
+import { useUser } from '../context/user';
 import { useNavigate } from 'react-router-dom';
 import {
   Menubar,

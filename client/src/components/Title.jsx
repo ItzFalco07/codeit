@@ -1,6 +1,6 @@
 import React from 'react';
 import {PanelRight, ChevronDown} from 'lucide-react';
-import {useUser} from '../context'
+import {useUser} from '../context/user'
 
 const Title = () => {
   const {user} = useUser();

@@ -9,7 +9,7 @@ import { Eye, EyeOff, Mail, Lock, User, Github } from 'lucide-react';
 import axios from 'axios';
 import {toast} from 'react-toastify'
 import {useNavigate} from 'react-router-dom'
-import { useUser } from '../context';
+import { useUser } from '../context/user';
 
 export default function Form() {
   const [isLoading, setIsLoading] = useState(false);

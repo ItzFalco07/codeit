@@ -1,78 +1,97 @@
 const router = require('express').Router();
-const mongoose = require('mongoose');
-const { Schema } = require('mongoose');
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
+const projectSchema = require('./projectSchema');
 
-const fileSchema = new mongoose.Schema({
-  name: String,
-  path: String,
-  content: String,
-  type: String,
-  parentId: { type: Schema.Types.ObjectId, ref: 'Folder' },
-});
-
-const folderSchema = new mongoose.Schema({
-  name: String,
-  path: String,
-  parentId: { type: Schema.Types.ObjectId, ref: 'Folder' },
-  children: [{ type: Schema.Types.ObjectId, ref: 'Folder' }],
-});
-
-const File = mongoose.model('File', fileSchema);
-const Folder = mongoose.model('Folder', folderSchema);
-
-router.post('/createFolder', async (req, res) => {
+async function getFolderStructure(folderPath, folderName) {
+  // Initialize the structure as an empty array, since folderName will be the root
+  let structure = [];
   try {
-    const { folderName, parentFolderId, username } = req.body;
-    const prefixedFolderName = `${username}_${folderName}`;
+    let items = await fs.readdir(folderPath); // Reads all files and folders inside the given folder
+    for (const item of items) {
+      const fullPath = path.join(folderPath, item);
+      const stat = await fs.stat(fullPath); // Get stats for the current item
+
+      let itemData = {
+        _id: fullPath,
+        name: item,
+        children: stat.isDirectory() ? [] : false,
+      };
+
+      // If the item is a directory, recursively get its structure
+      if (stat.isDirectory()) {
+        itemData.children = await getFolderStructure(fullPath, item); // Recursively fetch subfolders
+      }
+      structure.push(itemData);  // Add itemData to structure
+    }
+    return structure; 
+  } catch (error) {
+    console.error('Error reading folder structure:', error);
+  }
+}
+
+router.post('/createproject', async (req, res) => {
+  try {
+    const { projName, Type } = req.body;
+    console.log('projtype', Type, "projname", projName, 'username', req.session.user.name);
+
+    if (Type === 'blank') {
+      const project = new projectSchema({
+        projName: projName,
+        user: req.session.user.name,
+        type: Type
+      })
+
+      const projectPath = path.join(__dirname, '../', 'projects', req.session.user.name, projName);
+
+      await fs.mkdir(projectPath, { recursive: true });
+
+      let structure = await getFolderStructure(projectPath, projName);
+      project.save()
+
+      res.status(200).json({ project: {
+        name: projName,
+        children: structure
+      }});
+
+    } else {
+      res.status(400).json({ error: "proj type not supported" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      error: true,
+      message: error.message || 'An unexpected error occurred'
+    });
+  }
+});
+
+router.post('/enterproject', async(req,res)=> {
+  try {
+    const { projName, Type } = req.body;
+    const projectPath = path.join(__dirname, '../', 'projects', req.session.user.name, projName);
+    let structure = await getFolderStructure(projectPath, projName);
     
-    const parentFolder = parentFolderId ? await folder.findById(parentFolderId) : null;
-    const folderPath = parentFolder 
-      ? path.join(parentFolder.path, prefixedFolderName) 
-      : path.join(__dirname, username, prefixedFolderName); // Create a root folder for the user if none exists
-
-    fs.mkdirSync(folderPath, { recursive: true }); // Ensures the entire path is created
-
-    const newFolder = new folder({
-      name: prefixedFolderName,
-      path: folderPath,
-      parentId: parentFolder ? parentFolder._id : null,
-    });
-
-    await newFolder.save();
-    res.status(200).json({ message: 'Folder created successfully', folder: newFolder });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error creating folder' });
+    res.status(200).json({ project: {
+      name: projName,
+      children: structure
+    }});
+    
+  } catch(error) {
+    console.error(error)
   }
-});
+})
 
-
-router.post('/createFile', async (req, res) => {
-  const { fileName, fileType, parentFolderId, content, username } = req.body;
-  const prefixedFileName = `${username}_${fileName}`;
-
+router.post('/getprojects', async (req,res)=> {
   try {
-    const parentFolder = await folder.findById(parentFolderId);
-    const filePath = path.join(parentFolder.path, prefixedFileName);
-
-    fs.writeFileSync(filePath, content);
-
-    const newFile = new file({
-      name: prefixedFileName,
-      type: fileType,
-      content,
-      path: filePath,
-      parentId: parentFolderId,
-    });
-
-    await newFile.save();
-    res.status(200).json({ message: 'File created successfully', file: newFile });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Error creating file' });
+    const username = req.session.user.name;
+    console.log('username', username)
+    const projectData = await projectSchema.find({user: username})
+    res.status(200).json({projectData})
+  } catch(error) {
+    console.error(error)
+    res.status(400).json({error: true})
   }
-});
+})
 
 module.exports = router;

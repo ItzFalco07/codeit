@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { useUser } from '../context';
+import { useUser } from '../context/user';
 import {Button} from '@/components/ui/button'
 import axios from 'axios';
 import {useNavigate} from 'react-router-dom';

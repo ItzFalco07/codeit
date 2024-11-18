@@ -132,3 +132,19 @@ body {
 .EditableName input {
   color: black !important;
 }
+
+.sa div div{
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+}
+
+/* Adjust text size */
+.TreeNode {
+  font-size: 1.2em !important;
+  align-items: center;
+}
+
+.TreeNode .displayName {
+  font-size: 0.8em !important;
+}

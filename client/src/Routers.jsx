@@ -6,7 +6,7 @@ import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import { useUser } from './context';
+import { useUser } from './context/user';
 import Editor from './pages/Editor'
 
 function Routers() {
