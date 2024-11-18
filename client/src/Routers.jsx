@@ -2,8 +2,6 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 import Form from './pages/Form'
 import App from './pages/App'
 import { ThemeProvider } from "@/components/theme-provider"
-import {ToastContainer} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import { useUser } from './context/user';
@@ -35,7 +33,6 @@ function Routers() {
             <Route path="/home" element={<App/>} />
             <Route path="/editor" element={<Editor/>} />
           </Routes>
-        <ToastContainer theme="dark"/>
       </ThemeProvider>
   )
 }

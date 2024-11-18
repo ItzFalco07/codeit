@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, EyeOff, Mail, Lock, User, Github } from 'lucide-react';
 import axios from 'axios';
-import {toast} from 'react-toastify'
+import {toast} from '@/components/ui/toast'
 import {useNavigate} from 'react-router-dom'
 import { useUser } from '../context/user';
 
@@ -42,7 +42,7 @@ export default function Form() {
       } else {
         console.log('login failed')
         setIsLoading(false);
-        toast.error('user dont exists')
+        toast({title: 'user dont exists', description: 'try again or create a new account'})
       }
     }
   }
