@@ -23,6 +23,16 @@ import { useStructure } from '../context/structure';
 const Greet = () => {
   const { Structure, setStructure } = useStructure();
   const { user } = useUser();
+  function toCamel(text) {
+    if(text) {
+      console.log('text', text);
+      let arr = text.split('');
+      let newArr = [arr[0].toUpperCase(), ...arr.slice(1)]
+      return newArr.join('')
+    } else {
+      console.log('no text')
+    }
+  }
   const formatName = toCamel(user.name.split(' ')[0]);
   const navigate = useNavigate()
   const backendUrl = import.meta.env.VITE_BACKEND_URL
@@ -57,11 +67,7 @@ const Greet = () => {
   const [Type, setType] = useState('blank');
   const [Loading, setLoading] = useState(false);
 
-  function toCamel(text) {
-    let arr = text.split('');
-    let newArr = [arr[0].toUpperCase(), ...arr.slice(1)]
-    return newArr.join('')
-  }
+
 
   async function handleNewProject() {
     setLoading(true);
