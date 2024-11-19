@@ -67,7 +67,7 @@ router.post('/createproject', async (req, res) => {
 router.post('/enterproject', async(req,res)=> {
   try {
     const { projName, Type } = req.body;
-    const projectPath = path.join(__dirname, '../', 'projects', req.session.user.name, projName);
+    const projectPath = path.join('/tmp', 'projects', req.session.user.name, projName);
     let structure = await getFolderStructure(projectPath, projName);
     
     res.status(200).json({ project: {
