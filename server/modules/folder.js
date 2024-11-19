@@ -33,7 +33,6 @@ async function getFolderStructure(folderPath, folderName) {
 router.post('/createproject', async (req, res) => {
   try {
     const { projName, Type } = req.body;
-    console.log('projtype', Type, "projname", projName, 'username', req.session.user.name);
 
     if (Type === 'blank') {
       const project = new projectSchema({
@@ -42,8 +41,7 @@ router.post('/createproject', async (req, res) => {
         type: Type
       })
 
-      const projectPath = path.join(__dirname, '../', 'projects', req.session.user.name, projName);
-
+      const projectPath = path.join('/tmp', 'projects', req.session.user.name, projName);
       await fs.mkdir(projectPath, { recursive: true });
 
       let structure = await getFolderStructure(projectPath, projName);
