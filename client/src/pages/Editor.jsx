@@ -17,6 +17,7 @@ const Editor = () => {
   const [filesSize, setfilesSize] = useState(220)
   const [textSize, setTextSize] = useState(16); // Local text size state for input
   const [Language, setLanguage] = useState('javascript');
+  const [Path, setPath] = useState(null);
 
 
 	function handleCodeChange(newcode) {
@@ -25,26 +26,26 @@ const Editor = () => {
   useEffect(()=> {console.log(filesSize)}, [filesSize])
 
 	return (
-	<>
-	<EditorNav setTheme={setTheme} setfilesSize={setfilesSize} setTextSize={setTextSize} textSize={textSize} setLanguage={setLanguage}/>
-      <ResizablePanelGroup direction="horizontal" className="min-h-[93vh] flex gap-1">
-    		<ResizablePanel defaultSize={filesSize}>
-          <Files />
+	<div className="relative w-full h-screen overflow-scroll">
+    	<EditorNav setTheme={setTheme} setfilesSize={setfilesSize} setTextSize={setTextSize} textSize={textSize} setLanguage={setLanguage}/>
+      <ResizablePanelGroup direction="horizontal" className="relative max-h-[93%] flex gap-1">
+    		<ResizablePanel defaultSize={filesSize} className="relative h-[100%]">
+          <Files setPath={setPath} setLanguage={setLanguage} />
         </ResizablePanel>
 
         <ResizableHandle withHandle />
 
         <ResizablePanel defaultSize={600}>
-          <CodeEditor Language={Language} textSize={textSize} theme={theme} value={Code} onChange={setCode} />
+          <CodeEditor Path={Path} Language={Language} textSize={textSize} theme={theme} value={Code} onChange={setCode} />
         </ResizablePanel>
 
         <ResizableHandle withHandle />
 
-        <ResizablePanel defaultSize={300}>
+        <ResizablePanel defaultSize={300} className="relative h-[100%]">
           <Console />
         </ResizablePanel>
       </ResizablePanelGroup>
-	</>
+	</div>
 	)
 };
 

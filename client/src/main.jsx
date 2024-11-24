@@ -6,18 +6,22 @@ import Routers from './Routers'; // Import the Routers component
 import { UserProvider } from './context/user';
 import { StructureProvider } from './context/structure';
 import { Toaster } from "@/components/ui/toaster";
+import { ProjectProvider } from './context/project'; 
+import { CodeProvider } from './context/code';
 
 // Use ReactDOM.render instead of createRoot
 ReactDOM.render(
-  <StrictMode>
     <UserProvider>
-      <StructureProvider>
+    <CodeProvider>
+    <ProjectProvider>
+    <StructureProvider>
         <Router>
           <Routers />
           <Toaster />
         </Router>
-      </StructureProvider>
-    </UserProvider>
-  </StrictMode>,
+    </StructureProvider>
+    </ProjectProvider>
+    </CodeProvider>
+    </UserProvider>,
   document.getElementById('root')
 );

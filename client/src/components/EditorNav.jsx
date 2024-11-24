@@ -28,7 +28,7 @@ const EditorNav = ({ setTheme, setfilesSize, setTextSize, textSize, setLanguage 
   }
 
   return (
-    <nav className="h-[7vh] bg-black items-center flex px-4 justify-between">
+    <nav className="h-[7%] bg-black items-center flex px-4 justify-between">
       <div className="flex gap-4 items-center">
         <House className="navLogo" onClick={() => navigate('/home')} />
         <PanelRight className="navLogo" onClick={handleFiles} />

@@ -19,9 +19,11 @@ import { useToast } from "../hooks/use-toast"
 import {LoaderCircle} from 'lucide-react'
 import axios from 'axios';
 import { useStructure } from '../context/structure';
+import { useProject } from '../context/project';
 
 const Greet = () => {
   const { Structure, setStructure } = useStructure();
+  const { setProject } = useProject();
   const { user } = useUser();
   function toCamel(text) {
     if(text) {
@@ -67,8 +69,6 @@ const Greet = () => {
   const [Type, setType] = useState('blank');
   const [Loading, setLoading] = useState(false);
 
-
-
   async function handleNewProject() {
     setLoading(true);
     if (!Type || !projName) {
@@ -85,7 +85,8 @@ const Greet = () => {
         if(res.data) {
           setLoading(false)
           if(res.data.project) {
-            setStructure(res.data.project)
+            setStructure(res.data.structure)
+            setProject(res.data.project);
             navigate('/editor');
           }
         }

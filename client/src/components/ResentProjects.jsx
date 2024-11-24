@@ -3,6 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import axios from 'axios';
 import { useStructure } from '../context/structure';
 import {useNavigate} from 'react-router-dom'
+import {useProject} from '../context/project'
 
 const ResentProjects = () => {
   let skel = new Array(4).fill(true)
@@ -11,6 +12,8 @@ const ResentProjects = () => {
   const [Projects, setProjects] = useState(false)
   const { Structure, setStructure } = useStructure();
   const navigate = useNavigate()
+  const { setProject } = useProject();
+
 
   useEffect(()=> {
     async function getProjects() {
@@ -35,9 +38,11 @@ const ResentProjects = () => {
   async function handleOpenProject(e) {
     try {
       const res = await axios.post(`${backendUrl}/enterproject`, {projName: e.projName, Type: e.type}, {withCredentials: true})
-      setStructure(res.data.project)
-      navigate('/editor')
-      console.log("handle open project", res.data.project);
+      if(res) {
+        setStructure(res.data.structure)
+        setProject(res.data.project);
+        navigate('/editor')
+      }
     } catch(error) {
       console.log(error)
     }
