@@ -148,3 +148,9 @@ body {
 .TreeNode .displayName {
   font-size: 0.8em !important;
 }
+
+.break-words-container {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow-x: auto; /* Add horizontal scrolling if necessary */
+}

@@ -10,6 +10,8 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
+import RightTabs from '../components/RightTabs'
+import Ai from '@/components/Ai'
 
 const Editor = () => {
   const [Code, setCode] = useState('// start writing your code here')
@@ -18,7 +20,7 @@ const Editor = () => {
   const [textSize, setTextSize] = useState(16); // Local text size state for input
   const [Language, setLanguage] = useState('javascript');
   const [Path, setPath] = useState(null);
-
+  const [Selected, setSelected] = useState('console')
 
 	function handleCodeChange(newcode) {
 		setCode(newcode)
@@ -41,8 +43,9 @@ const Editor = () => {
 
         <ResizableHandle withHandle />
 
-        <ResizablePanel defaultSize={300} className="relative h-[100%]">
-          <Console />
+        <ResizablePanel defaultSize = {300} className="relative h-[93vh]">
+          <RightTabs setSelected={setSelected} Selected = {Selected}/>
+          {(Selected === 'console') ? <Console/> : <Ai/>}
         </ResizablePanel>
       </ResizablePanelGroup>
 	</div>

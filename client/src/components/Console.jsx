@@ -36,6 +36,7 @@ const Console = ({projName}) => {
     let terminalElement = document.getElementById('terminal')
     terminal.open(terminalElement);
     fitAddon.fit();
+    terminal.write('\n')
 
     let command = '';
 
@@ -103,7 +104,9 @@ const Console = ({projName}) => {
     };
   }, []);
 
-  return <div id="terminal" className="h-[100%] bg-red-400"></div>;
+  return (
+    <div id="terminal" className="relative h-[93vh] w-full"></div>
+  );
 };
 
 export default Console;

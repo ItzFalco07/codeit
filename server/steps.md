@@ -6,12 +6,12 @@
 # display data from mongoDB ✅
 # setup virtual terminal on folder ✅
 # setup folder.js with folder frontend ✅
+# add external tab near console for ai ✅
 
 // todo
-# add external tab near console for ai
-# add gemini code support
 # crud operations for folders and files
+# setup docker containter for nodepty terminal
+# add gemini code support
 # add all templates
 # minor updates (4 limit, projects section, live server, prettier formatter)
 # deploy without error
-# setup docker containter for nodepty terminal
